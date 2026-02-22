@@ -1,0 +1,20 @@
+name: Claude PR Assistant
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Claude Code
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npx claude-code review
